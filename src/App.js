@@ -1,11 +1,10 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Body from './components/Body';
 
-function App() {
+const App = () =>  {
   return (
-    <div className="App">
-      
-    </div>
+    <Body/>
   );
 }
 
