@@ -4,7 +4,7 @@ import { API_OPTIONS } from "../utils/constants";
 import { addNowPlayingMovies } from "../redux/movieSlice";
 
 const useNowPlayingMovies = () => {
-
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const useNowPlayingMovies = () => {
     const json = await data.json();
     dispatch(addNowPlayingMovies(json.results));
   };
-
 };
 
 export default useNowPlayingMovies;
