@@ -1,15 +1,17 @@
 import React, { useRef, useState } from "react";
-import Header from "./Header";
+import Header from "../components/Header";
 import { BG_URL } from "../utils/constants";
 import { checkValidData } from "../utils/validator";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/userSlice";
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = () => {
-  
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(true);
 
@@ -32,24 +34,33 @@ const Login = () => {
 
     if (!isSignInForm) {
       //sign Up Logic
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
           const user = userCredential.user;
-          const {uid, email} = user;
-          dispatch(addUser({uid: uid, email: email}));
-          navigate("/browse"); 
-        }).catch((error) => {
+          const { uid, email } = user;
+          dispatch(addUser({ uid: uid, email: email }));
+          navigate("/browse");
+        })
+        .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "-" + errorMessage);
         });
     } else {
       //sign In Logic
-      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
           const user = userCredential.user;
-          const {uid, email} = user;
-          dispatch(addUser({uid: uid, email: email}));
+          const { uid, email } = user;
+          dispatch(addUser({ uid: uid, email: email }));
           navigate("/browse");
         })
         .catch((error) => {
