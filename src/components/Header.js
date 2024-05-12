@@ -5,13 +5,13 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../redux/userSlice";
-import { toggleGptSerachView } from "../redux/gptSlice";
-import { SUPPORTED_LANGUAGES } from "../utils/languageConstants";
-import { changeLanguage } from "../redux/configSlice";
+import { toggleSerachView } from "../redux/searchBarSlice";
+import LangDropDown from "./LangDropdown";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const user = useSelector((store) => store?.user);
-  const showGptSearch = useSelector((store) => store?.gpt.showGptSearch);
+  const showSearch = useSelector((store) => store?.search.showSearch);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,41 +27,33 @@ const Header = () => {
       });
   };
 
-  const handleGPTSearchClick = () => {
-    dispatch(toggleGptSerachView());
-  };
-
-  const handleLanguageChange = (event) => {
-    dispatch(changeLanguage(event.target.value));
+  const handleSearchClick = () => {
+    dispatch(toggleSerachView());
   };
 
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img className="w-44" src={LOGO} alt="logo" />
+
       {user && (
         <div className="flex p-2">
-          {showGptSearch && (
-            <select
-              className="p-2 m-2 bg-gray-900 text-white"
-              onChange={handleLanguageChange}
-            >
-              {SUPPORTED_LANGUAGES.map((item) => {
-                return (
-                  <option key={item.identifier} value={item.identifier}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
+          {showSearch && (
+            <>
+              <SearchBar />
+              <LangDropDown />
+            </>
           )}
+          {/* ----------search btn----------- */}
           <button
-            className="py-2 px-4 mx-4 my-2 rounded-lg text-white bg-purple-800"
-            onClick={handleGPTSearchClick}
+            className="m-4 py-2 w-40 rounded-lg text-white bg-purple-500"
+            onClick={handleSearchClick}
           >
-            {showGptSearch ? "Homepage" : "GPT Search"}
+            {showSearch ? "Homepage" : "Search Movies"}
           </button>
+
+          {/* -------------Sign out------------- */}
           <img
-            className="w-12 h-12 rounded-lg"
+            className="w-12 rounded-lg mt-4 h-10"
             src={USER_AVATAR}
             alt="userIcon"
           />
