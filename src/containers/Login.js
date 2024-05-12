@@ -27,7 +27,13 @@ const Login = () => {
   };
 
   const handleBtnClick = () => {
-    const message = checkValidData(email.current.value, password.current.value);
+
+    const message = checkValidData(
+      name.current?.value,
+      email.current.value,
+      password.current.value,
+      isSignInForm,
+    );
     setErrorMessage(message);
 
     if (message) return;
@@ -90,6 +96,7 @@ const Login = () => {
             className="p-4 my-4 w-full bg-gray-700"
             type="text"
             placeholder="Full Name"
+            ref={name}
           />
         )}
 
