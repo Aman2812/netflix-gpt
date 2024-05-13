@@ -5,13 +5,11 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../redux/userSlice";
-import { toggleSerachView } from "../redux/searchBarSlice";
 import LangDropDown from "./LangDropdown";
 import SearchBar from "./SearchBar";
 
 const Header = () => {
   const user = useSelector((store) => store?.user);
-  const showSearch = useSelector((store) => store?.search.showSearch);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,32 +25,19 @@ const Header = () => {
       });
   };
 
-  const handleSearchClick = () => {
-    dispatch(toggleSerachView());
-  };
-
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
       <div className="flex flex-wrap">
         <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
-        {user && showSearch && <SearchBar />}
+        {user && <SearchBar />}
       </div>
 
       {user && (
         <div className="flex p-2 justify-center">
-          {showSearch && <LangDropDown />}
-
-          {/* ----------search btn----------- */}
-          <button
-            className="m-4 py-2 w-32 rounded-lg text-white bg-yellow-700 p-2"
-            onClick={handleSearchClick}
-          >
-            {showSearch ? "Homepage" : "Search Movies"}
-          </button>
-
+          <LangDropDown />
           {/* -------------Sign out------------- */}
           <img
-            className="w-12 rounded-lg mt-4 h-10 hidden md:inline-block"
+            className="w-12 rounded-lg mt-4 h-10"
             src={USER_AVATAR}
             alt="userIcon"
           />

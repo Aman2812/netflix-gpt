@@ -2,7 +2,7 @@ import React from "react";
 import VideoBackground from "../components/VideoBackground";
 import { useParams } from "react-router-dom";
 
-const Player = () => {
+const Watch = () => {
 
   const { id } = useParams();
 
@@ -13,4 +13,4 @@ const Player = () => {
   );
 };
 
-export default Player;
+export default Watch;

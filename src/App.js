@@ -3,7 +3,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./containers/Login";
 import Browse from "./containers/Browse";
-import Player from "./containers/Player";
+import Watch from "./containers/Watch";
 
 const App = () => {
   
@@ -17,8 +17,8 @@ const App = () => {
       element: <Browse />,
     },
     {
-      path: "/player/:id",
-      element: <Player />,
+      path: "/watch/:id",
+      element: <Watch/>,
     },
   ]);
 

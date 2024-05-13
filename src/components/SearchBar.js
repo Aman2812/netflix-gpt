@@ -1,14 +1,27 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { language } from "../utils/languageConstants";
+import { API_OPTIONS } from "../utils/constants";
+import { addSearchedMovies } from "../redux/searchBarSlice";
 
 const SearchBar = () => {
   const languageKey = useSelector((store) => store?.config.language);
 
   const searchText = useRef(null);
 
-  const handleSearchClick = () => {
-    console.log(searchText.current.value);
+  const dispatch = useDispatch();
+
+  const handleSearchClick = async () => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        searchText.current?.value +
+        "&include_adult=false&language=en-US&page=1",
+      API_OPTIONS
+    );
+    const json = await data?.json();
+    const searchName = searchText?.current?.value;
+    const searchedMovieList = json?.results;
+    dispatch(addSearchedMovies({ searchName, searchedMovieList }));
   };
 
   return (

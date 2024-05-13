@@ -4,6 +4,7 @@ import { changeLanguage } from "../redux/configSlice";
 import { SUPPORTED_LANGUAGES } from "../utils/languageConstants";
 
 const LangDropDown = () => {
+  
   const dispatch = useDispatch();
 
   const handleLanguageChange = (event) => {

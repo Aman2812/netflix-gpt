@@ -3,14 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchBarSlice = createSlice({
   name: "search",
   initialState: {
-    showSearch: false,
+    searchMovieName: null,
+    searchedMovieList: null,
   },
   reducers: {
-    toggleSerachView: (state) => {
-      state.showSearch = !state.showSearch;
+    addSearchedMovies: (state, action) => {
+      const { searchName, searchedMovieList } = action.payload;
+      state.searchMovieName = searchName;
+      state.searchedMovieList = searchedMovieList;
     },
   },
 });
 
-export const { toggleSerachView } = searchBarSlice.actions;
+export const { addSearchedMovies } =
+  searchBarSlice.actions;
 export default searchBarSlice.reducer;
