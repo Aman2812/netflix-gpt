@@ -13,7 +13,7 @@ import {
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,16 +23,16 @@ const Login = () => {
   const password = useRef(null);
 
   const toggleSignInForm = () => {
+    setErrorMessage("");
     setIsSignInForm(!isSignInForm);
   };
 
   const handleBtnClick = () => {
-
     const message = checkValidData(
       name.current?.value,
       email.current.value,
       password.current.value,
-      isSignInForm,
+      isSignInForm
     );
     setErrorMessage(message);
 
