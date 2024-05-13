@@ -4,7 +4,6 @@ import { changeLanguage } from "../redux/configSlice";
 import { SUPPORTED_LANGUAGES } from "../utils/languageConstants";
 
 const LangDropDown = () => {
-
   const dispatch = useDispatch();
 
   const handleLanguageChange = (event) => {
@@ -14,7 +13,7 @@ const LangDropDown = () => {
   return (
     <div>
       <select
-        className="m-4 py-2 bg-gray-500 text-white rounded-lg"
+        className="m-5 py-2 w-32 px-6 bg-gray-500 text-white rounded-lg"
         onChange={handleLanguageChange}
       >
         {SUPPORTED_LANGUAGES.map((item) => {

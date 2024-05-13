@@ -3,27 +3,29 @@ import { useSelector } from "react-redux";
 import { language } from "../utils/languageConstants";
 
 const SearchBar = () => {
-
   const languageKey = useSelector((store) => store?.config.language);
 
   const searchText = useRef(null);
 
-  const handleGptSearchClick = () => {
+  const handleSearchClick = () => {
     console.log(searchText.current.value);
   };
 
   return (
-    <div className="px-32">
-      <form onSubmit={(e) => e.preventDefault()}>
+    <div className="py-2 md:py-6 px-8 md:px-0">
+      <form
+        className="flex items-center justify-center"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <input
           ref={searchText}
-          className="p-2 m-4 w-72 rounded-lg"
+          className="p-2 mx-2 w-full md:w-72 rounded-lg"
           type="text"
           placeholder={language[languageKey].gptSearchPlaceHolder}
         />
         <button
-          className="m-4 py-2 px-4 bg-red-700 text-white rounded-lg"
-          onClick={handleGptSearchClick}
+          className="py-2 px-4 bg-red-700 text-white rounded-lg"
+          onClick={handleSearchClick}
         >
           {language[languageKey].search}
         </button>

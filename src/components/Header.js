@@ -32,20 +32,19 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-44" src={LOGO} alt="logo" />
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
+      <div className="flex flex-wrap">
+        <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
+        {!user && showSearch && <SearchBar />}
+      </div>
 
-      {user && (
-        <div className="flex p-2">
-          {showSearch && (
-            <>
-              <SearchBar />
-              <LangDropDown />
-            </>
-          )}
+      {!user && (
+        <div className="flex p-2 justify-center">
+          {showSearch && <LangDropDown />}
+
           {/* ----------search btn----------- */}
           <button
-            className="m-4 py-2 w-40 rounded-lg text-white bg-purple-500"
+            className="m-4 py-2 w-32 rounded-lg text-white bg-yellow-700 p-2"
             onClick={handleSearchClick}
           >
             {showSearch ? "Homepage" : "Search Movies"}
@@ -53,12 +52,12 @@ const Header = () => {
 
           {/* -------------Sign out------------- */}
           <img
-            className="w-12 rounded-lg mt-4 h-10"
+            className="w-12 rounded-lg mt-4 h-10 hidden md:inline-block"
             src={USER_AVATAR}
             alt="userIcon"
           />
           <button className="font-bold text-white" onClick={handleSignOut}>
-            (Sign Out)
+            (SignOut)
           </button>
         </div>
       )}
