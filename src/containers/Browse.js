@@ -10,13 +10,15 @@ import { useSelector } from "react-redux";
 import SearchMovies from "../components/SearchMovies";
 
 const Browse = () => {
-  
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
 
   const user = useSelector((store) => store?.user);
-  const searchName = useSelector((store) => store?.search.searchMovieName);
+
+  const { searchMovieName, isSearchButtonClicked } = useSelector(
+    (store) => store?.search
+  );
 
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const Browse = () => {
   return (
     <div>
       <Header />
-      {searchName?.length > 0 ? (
+      {searchMovieName?.length > 0 && isSearchButtonClicked ? (
         <SearchMovies />
       ) : (
         <>

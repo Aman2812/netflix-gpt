@@ -2,7 +2,11 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { language } from "../utils/languageConstants";
 import { API_OPTIONS } from "../utils/constants";
-import { addSearchedMovies } from "../redux/searchBarSlice";
+import {
+  addSearchText,
+  addSearchedMovies,
+  searchButtonClicked,
+} from "../redux/searchBarSlice";
 
 const SearchBar = () => {
   const languageKey = useSelector((store) => store?.config.language);
@@ -11,7 +15,21 @@ const SearchBar = () => {
 
   const dispatch = useDispatch();
 
+  const handleSearchChange = () => {
+    const searchName = searchText?.current?.value;
+    dispatch(addSearchText(searchName));
+    if (!searchName) {
+      dispatch(searchButtonClicked(false));
+    }
+  };
+
   const handleSearchClick = async () => {
+    const searchName = searchText?.current?.value;
+    if (!searchName) {
+      dispatch(searchButtonClicked(false));
+    } else {
+      dispatch(searchButtonClicked(true));
+    }
     const data = await fetch(
       "https://api.themoviedb.org/3/search/movie?query=" +
         searchText.current?.value +
@@ -19,9 +37,8 @@ const SearchBar = () => {
       API_OPTIONS
     );
     const json = await data?.json();
-    const searchName = searchText?.current?.value;
     const searchedMovieList = json?.results;
-    dispatch(addSearchedMovies({ searchName, searchedMovieList }));
+    dispatch(addSearchedMovies(searchedMovieList));
   };
 
   return (
@@ -35,6 +52,7 @@ const SearchBar = () => {
           className="p-2 mx-2 w-full md:w-72 rounded-lg"
           type="text"
           placeholder={language[languageKey].gptSearchPlaceHolder}
+          onChange={handleSearchChange}
         />
         <button
           className="py-2 px-4 bg-red-700 text-white rounded-lg"

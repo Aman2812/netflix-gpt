@@ -5,16 +5,21 @@ const searchBarSlice = createSlice({
   initialState: {
     searchMovieName: null,
     searchedMovieList: null,
+    isSearchButtonClicked: false,
   },
   reducers: {
     addSearchedMovies: (state, action) => {
-      const { searchName, searchedMovieList } = action.payload;
-      state.searchMovieName = searchName;
-      state.searchedMovieList = searchedMovieList;
+      state.searchedMovieList = action.payload;
+    },
+    addSearchText: (state, action) => {
+      state.searchMovieName = action.payload;
+    },
+    searchButtonClicked: (state, action) => {
+      state.isSearchButtonClicked = action.payload;
     },
   },
 });
 
-export const { addSearchedMovies } =
+export const { addSearchedMovies, addSearchText, searchButtonClicked } =
   searchBarSlice.actions;
 export default searchBarSlice.reducer;
