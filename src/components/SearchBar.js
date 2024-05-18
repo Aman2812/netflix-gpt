@@ -29,16 +29,16 @@ const SearchBar = () => {
       dispatch(searchButtonClicked(false));
     } else {
       dispatch(searchButtonClicked(true));
+      const data = await fetch(
+        "https://api.themoviedb.org/3/search/movie?query=" +
+          searchText.current?.value +
+          "&include_adult=false&language=en-US&page=1",
+        API_OPTIONS
+      );
+      const json = await data?.json();
+      const searchedMovieList = json?.results;
+      dispatch(addSearchedMovies(searchedMovieList));
     }
-    const data = await fetch(
-      "https://api.themoviedb.org/3/search/movie?query=" +
-        searchText.current?.value +
-        "&include_adult=false&language=en-US&page=1",
-      API_OPTIONS
-    );
-    const json = await data?.json();
-    const searchedMovieList = json?.results;
-    dispatch(addSearchedMovies(searchedMovieList));
   };
 
   return (
