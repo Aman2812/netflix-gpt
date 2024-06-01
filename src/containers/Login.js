@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import { BG_URL } from "../utils/constants";
 import { checkValidData } from "../utils/validator";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../redux/userSlice";
+import { addUser, removeUser } from "../redux/userSlice";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -17,6 +17,13 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      dispatch(removeUser());
+    }
+  }, []);
 
   const name = useRef(null);
   const email = useRef(null);
