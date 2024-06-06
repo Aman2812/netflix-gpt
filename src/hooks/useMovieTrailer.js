@@ -9,6 +9,7 @@ const useMovieTrailer = (movieId) => {
   useEffect(() => {
     dispatch(clearTrailerVideo());
     getMovieVideos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId, dispatch]);
 
   const getMovieVideos = async () => {

@@ -23,6 +23,7 @@ const Login = () => {
     if (location.pathname === "/") {
       dispatch(removeUser());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const name = useRef(null);
