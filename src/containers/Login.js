@@ -31,8 +31,10 @@ const Login = () => {
   const password = useRef(null);
 
   const toggleSignInForm = () => {
-    setErrorMessage("");
     setIsSignInForm(!isSignInForm);
+    setErrorMessage("");
+    email.current.value = "";
+    password.current.value = "";
   };
 
   const handleBtnClick = () => {
